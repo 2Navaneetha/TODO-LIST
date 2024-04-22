@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-Do List App</title>
+    <link  rel="stylesheet" href="todolist.css">
+</head>
+<body>
+    <div class="container">
+    <div class="app">
+    <h2>TO-DO LIST <img src="do-list-planning-icon-concept-600nw-739093225.webp" ></h2>
+    <div class="box">
+        <input type="text" id="inside-box" placeholder="Add your message">
+        <button onclick="addText()">Add</button>
+    </div>
+    <ul id="container2">
+         
+    </ul>
+</div>
+</div>
+<script>
+     const insideBox = document.getElementById("inside-box")
+     const listContainer=document.getElementById("container2")
+     function addText()
+     {
+        if(insideBox.value ==='')
+        {
+            alert("Please write something")
+        }
+        else{
+            let li = document.createElement("li");
+            li.innerHTML=insideBox.value;
+            listContainer.appendChild(li);
+            let span = document.createElement("span")
+            span.innerHTML="\u00d7";
+            li.appendChild(span);
+        }
+        insideBox.value="";
+        saveData();
+
+     }
+     listContainer.addEventListener("click", function(a)
+     {
+     if(a.triger.taganyName === "LI")
+     {
+        a.triger.classList.toggle("checked");
+       saveData();
+     }
+     else if(a.triger.taganyName === "SPAN")
+     {
+        a.triger.parentElement.remove();
+        saveData();
+     }
+    },false);
+    function saveData()
+    {
+        localStorage.setItem("data", listContainer.innerHTML);
+    }
+    function showList()
+    {
+        listContainer.innerHTML=localStorage.getItem("data");
+    }
+    saveData();
+</script>
+</body>
+</html>
